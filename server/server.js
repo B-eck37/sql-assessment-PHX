@@ -26,8 +26,8 @@ app.get('/api/users', sqlCtrl.getUsers);
 app.get('/api/vehicles', sqlCtrl.getVehicles);
 app.get('/api/user/:userId/vehiclecount', sqlCtrl.getVehicleCount);
 app.get('/api/user/:userId/vehicle', sqlCtrl.getUserVehicles);
-app.get('/api/vehicle', sqlCtrl.getByEmail);
-app.get('/api/vehicle', sqlCtrl.getByLetters);
+app.get('/api/vehicle', sqlCtrl.getByThings);
+// app.get('/api/vehicle', sqlCtrl.getLetters);
 
 app.get('/api/newervehiclesbyyear', sqlCtrl.getByYear);
 

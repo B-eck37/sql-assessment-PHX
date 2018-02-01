@@ -33,20 +33,31 @@ module.exports = {
             res.status(200).send(vehicles)
         })
     },
-    //NEEDS WORK
-    getByEmail(req, res){
-        const {email} = req.body
-        req.app.get('db').get_by_email(email).then(vehicles => {
+    getByThings(req, res){
+        const {query} = req
+        const{userEmail} = query 
+        const{userFirstStart} = query 
+        if(userEmail){
+        // console.log(userEmail)
+        req.app.get('db').get_by_email(userEmail).then(vehicles => {
             res.status(200).send(vehicles)
         })
-    },
-    //NEEDS WORK
-    getByLetters(req,res){
-        const {letters} = req.body
-        req.app.get('db').get_by_letters(letters).then(vehicles => {
-            res.status(200).send(vehicles)
+     } else {
+        // const userFirstStart = userEmail
+        console.log('Hey!');
+        console.log(userFirstStart, 'hey');
+        req.app.get('db').get_names().then(response => {
+            console.log(response, "res");
+            response.forEach(elem => {
+                if(elem.name.startsWith(userFirstStart)){
+                    console.log(elem.name, 'hello')
+                    req.app.get('db').get_by_letters([elem.name]).then(vehicles => {
+                        res.status(200).send(vehicles);
+                    }).catch(err, ()=>console.log(err, 'yo'))
+                }
+            })
         })
-    },
+    }},
     getByYear(req, res){
         req.app.get('db').get_by_year().then(vehicles => {
             res.status(200).send(vehicles)
