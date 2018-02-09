@@ -38,19 +38,14 @@ module.exports = {
         const{userEmail} = query 
         const{userFirstStart} = query 
         if(userEmail){
-        // console.log(userEmail)
         req.app.get('db').get_by_email(userEmail).then(vehicles => {
             res.status(200).send(vehicles)
         })
      } else {
-        // const userFirstStart = userEmail
-        console.log('Hey!');
-        console.log(userFirstStart, 'hey');
         req.app.get('db').get_names().then(response => {
             console.log(response, "res");
             response.forEach(elem => {
                 if(elem.name.startsWith(userFirstStart)){
-                    console.log(elem.name, 'hello')
                     req.app.get('db').get_by_letters([elem.name]).then(vehicles => {
                         res.status(200).send(vehicles);
                     }).catch(err, ()=>console.log(err, 'yo'))
@@ -69,7 +64,6 @@ module.exports = {
             res.status(200).send(vehicle);
         })
     },
-    //NEEDS WORK
     deleteOwnership(req,res){
         const {userId, vehicleId} = req.params;
         req.app.get('db').delete_ownership(userId, vehicleId).then(vehicle => {
